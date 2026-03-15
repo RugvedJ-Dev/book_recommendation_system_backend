@@ -1,9 +1,18 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import pickle
 from pydantic import BaseModel
 import pandas as pd
 import numpy as np
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 try:
     with open("models/top_50.pkl","rb") as f:
@@ -19,7 +28,7 @@ except FileNotFoundError:
 
 class Recommendation(BaseModel):
     book_name:str
-    
+
 @app.get("/")
 def home():
     return {"message": "Server for book recommendation system"}
