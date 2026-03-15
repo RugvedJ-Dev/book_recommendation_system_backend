@@ -19,7 +19,7 @@ except FileNotFoundError:
 
 class Recommendation(BaseModel):
     book_name:str
-
+    
 @app.get("/")
 def home():
     return {"message": "Server for book recommendation system"}
